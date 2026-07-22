@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JARVIS AI Assistant</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Boot-up Screen -->
+    <div id="bootScreen" class="boot-screen">
+        <div class="boot-content">
+            <div class="boot-logo">
+                <svg width="100" height="100" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45" stroke="var(--color-primary)" stroke-width="2" fill="none" opacity="0.3">
+                        <animate attributeName="stroke-dasharray" values="0 283;141 142;0 283" dur="2s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="50" cy="50" r="30" stroke="var(--color-primary)" stroke-width="2" fill="none" opacity="0.6">
+                        <animate attributeName="stroke-dasharray" values="0 188;94 94;0 188" dur="1.5s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="50" cy="50" r="15" fill="var(--color-primary)" opacity="0.8">
+                        <animate attributeName="opacity" values="0.8;0.3;0.8" dur="1s" repeatCount="indefinite"/>
+                    </circle>
+                </svg>
+            </div>
+            <h1 class="boot-title">J.A.R.V.I.S</h1>
+            <p class="boot-subtitle">Just A Rather Very Intelligent System</p>
+            <div class="boot-progress">
+                <div class="progress-bar"></div>
+            </div>
+            <p class="boot-status">Initializing systems...</p>
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div id="dashboard" class="dashboard hidden">
+        <!-- Background Particles -->
+        <div class="particles-container">
+            <canvas id="particlesCanvas"></canvas>
+        </div>
+
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <h1>J.A.R.V.I.S</h1>
+            </div>
+            <div class="system-time">
+                <div id="currentTime" class="time-display"></div>
+                <div id="currentDate" class="date-display"></div>
+            </div>
+        </header>
+
+        <!-- Main Container with Perfect Centering -->
+        <div class="main-container">
+            <!-- Central HUD - Perfectly Centered -->
+            <div class="hud-center-container">
+                <div class="hud-container">
+                    <!-- Main HUD Ring System -->
+                    <div class="hud-ring-system">
+                        <div class="hud-ring outer-ring">
+                            <svg viewBox="0 0 360 360" class="ring-svg">
+                                <circle cx="180" cy="180" r="170" class="ring-path" />
+                                <circle cx="180" cy="180" r="170" class="ring-progress" />
+                            </svg>
+                        </div>
+                        <div class="hud-ring middle-ring">
+                            <svg viewBox="0 0 320 320" class="ring-svg">
+                                <circle cx="160" cy="160" r="150" class="ring-path" />
+                                <circle cx="160" cy="160" r="150" class="ring-progress" />
+                            </svg>
+                        </div>
+                        <div class="hud-ring inner-ring">
+                            <svg viewBox="0 0 280 280" class="ring-svg">
+                                <circle cx="140" cy="140" r="130" class="ring-path" />
+                                <circle cx="140" cy="140" r="130" class="ring-progress" />
+                            </svg>
+                        </div>
+                        
+                        <!-- Scanner Line -->
+                        <div class="scanner-line"></div>
+                        
+                        <!-- Core -->
+                        <div class="hud-core">
+                            <div class="core-inner">
+                                <div id="micStatus" class="core-status">READY</div>
+                            </div>
+                        </div>
+
+                        <!-- Radial Lines -->
+                        <div class="radial-lines">
+                            <div class="radial-line" style="transform: rotate(0deg)"></div>
+                            <div class="radial-line" style="transform: rotate(45deg)"></div>
+                            <div class="radial-line" style="transform: rotate(90deg)"></div>
+                            <div class="radial-line" style="transform: rotate(135deg)"></div>
+                            <div class="radial-line" style="transform: rotate(180deg)"></div>
+                            <div class="radial-line" style="transform: rotate(225deg)"></div>
+                            <div class="radial-line" style="transform: rotate(270deg)"></div>
+                            <div class="radial-line" style="transform: rotate(315deg)"></div>
+                        </div>
+                    </div>
+
+                    <!-- Voice Waveform -->
+                    <div id="voiceWaveform" class="voice-waveform hidden">
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Left Panel - AI Responses -->
+            <aside class="left-panel panel">
+                <div class="panel-header">
+                    <h3>AI Response Terminal</h3>
+                    <div class="status-indicator online"></div>
+                </div>
+                <div class="panel-content">
+                    <div id="aiOutput" class="ai-output">
+                        <div class="ai-message">
+                            <div class="message-indicator"></div>
+                            <span>System initialized. Ready for commands...</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Right Panel - System Info -->
+            <aside class="right-panel panel">
+                <div class="panel-header">
+                    <h3>System Status</h3>
+                    <div class="status-indicator processing"></div>
+                </div>
+                <div class="panel-content">
+                    <div class="info-section">
+                        <h4>System Metrics</h4>
+                        <div class="metric-item">
+                            <span class="metric-label">Status:</span>
+                            <span id="systemStatus" class="metric-value online">Online</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">CPU Usage:</span>
+                            <span id="cpuUsage" class="metric-value">45%</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">Memory:</span>
+                            <span id="memoryUsage" class="metric-value">2.1GB / 8GB</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">Network:</span>
+                            <span id="networkStatus" class="metric-value connected">Connected</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">Uptime:</span>
+                            <span id="uptime" class="metric-value">2h 15m</span>
+                        </div>
+                    </div>
+
+                    <div class="info-section">
+                        <h4>Weather</h4>
+                        <div class="weather-info">
+                            <div class="weather-item">
+                                <span class="weather-label">Location:</span>
+                                <span id="location" class="weather-value">India</span>
+                            </div>
+                            <div class="weather-item">
+                                <span class="weather-label">Temperature:</span>
+                                <span id="temperature" class="weather-value">72°F</span>
+                            </div>
+                            <div class="weather-item">
+                                <span class="weather-label">Condition:</span>
+                                <span id="condition" class="weather-value">Clear</span>
+                            </div>
+                            <div class="weather-item">
+                                <span class="weather-label">Humidity:</span>
+                                <span id="humidity" class="weather-value">65%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+
+        <!-- Bottom Control Panel -->
+        <footer class="bottom-panel">
+            <div class="input-section">
+                <input type="text" id="textInput" class="text-input" placeholder="Type your command here...">
+                <button id="sendBtn" class="btn btn--primary">Send</button>
+            </div>
+            <div class="control-buttons">
+                <button id="micBtn" class="control-btn mic-btn" title="Voice Input">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/>
+                    </svg>
+                </button>
+                <button id="settingsBtn" class="control-btn settings-btn" title="Settings">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
+                    </svg>
+                </button>
+                <button id="powerBtn" class="control-btn power-btn" title="Power">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M13,3h-2v10h2V3z M17.83,5.17l-1.42,1.42C17.99,7.86,19,9.81,19,12c0,3.87-3.13,7-7,7s-7-3.13-7-7 c0-2.19,1.01-4.14,2.58-5.42L6.17,5.17C4.23,6.82,3,9.26,3,12c0,4.97,4.03,9,9,9s9-4.03,9-9C21,9.26,19.77,6.82,17.83,5.17z"/>
+                    </svg>
+                </button>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal hidden">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>System Settings</h3>
+                <button id="closeSettings" class="close-btn">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="setting-item">
+                    <label for="voiceEnabled">Voice Recognition</label>
+                    <input type="checkbox" id="voiceEnabled" checked>
+                </div>
+                <div class="setting-item">
+                    <label for="speechEnabled">Text-to-Speech</label>
+                    <input type="checkbox" id="speechEnabled" checked>
+                </div>
+                <div class="setting-item">
+                    <label for="animationsEnabled">Animations</label>
+                    <input type="checkbox" id="animationsEnabled" checked>
+                </div>
+                <div class="setting-item">
+                    <label for="volumeLevel">Volume</label>
+                    <input type="range" id="volumeLevel" min="0" max="100" value="80">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
