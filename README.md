@@ -2,6 +2,10 @@
 
 J.A.R.V.I.S. is a futuristic browser-based assistant prototype. The current release provides the HUD interface, browser voice input/output, local demo commands, system metrics, settings, and a documented Flask integration path.
 
+## A note about the delay
+
+Sorry for the delay in sharing this project. It spent almost a year in my cabinet, and due to some issues I was not able to post it on GitHub sooner. As the quote says: **“The later it comes, the more perfect it gets.”**
+
 ## Quick start
 
 The current frontend has no build step or package dependencies. Serve the folder over HTTP so browser APIs work reliably:
