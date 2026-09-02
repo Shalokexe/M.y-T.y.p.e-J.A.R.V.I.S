@@ -86,5 +86,6 @@ Never commit `.env` files or API keys. Copy `.env.example` to `.env` only when t
 ## License
 This project is for learning, development, and experimentation.
 
+but the main plot of the things is that we dont need to do anything greater than anyone ever. we can do everything on our own.
 
 some more things to mention the jarvis this we are using is something thatw e always wanted to have in our homes and in our life that shares the same typa humour we wanna carry inside our friendships and life situations.
